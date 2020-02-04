@@ -68,21 +68,21 @@ func dataSourceAwsEc2TransitGatewayVpcAttachmentRead(d *schema.ResourceData, met
 	output, err := conn.DescribeTransitGatewayVpcAttachments(input)
 
 	if err != nil {
-		return fmt.Errorf("error reading EC2 Transit Gateway Route Table: %s", err)
+		return fmt.Errorf("error reading EC2 Transit Gateway VPC Attachment: %s", err)
 	}
 
 	if output == nil || len(output.TransitGatewayVpcAttachments) == 0 {
-		return errors.New("error reading EC2 Transit Gateway Route Table: no results found")
+		return errors.New("error reading EC2 Transit Gateway VPC Attachment: no results found")
 	}
 
 	if len(output.TransitGatewayVpcAttachments) > 1 {
-		return errors.New("error reading EC2 Transit Gateway Route Table: multiple results found, try adjusting search criteria")
+		return errors.New("error reading EC2 Transit Gateway VPC Attachment: multiple results found, try adjusting search criteria")
 	}
 
 	transitGatewayVpcAttachment := output.TransitGatewayVpcAttachments[0]
 
 	if transitGatewayVpcAttachment == nil {
-		return errors.New("error reading EC2 Transit Gateway Route Table: empty result")
+		return errors.New("error reading EC2 Transit Gateway VPC Attachment: empty result")
 	}
 
 	if transitGatewayVpcAttachment.Options == nil {
